@@ -8,7 +8,7 @@ do
   user=$(basename $f)
   user=${user%"_authorized_keys"}
   echo $user
-  adduser $user -D
+  adduser -D -s /bin/bash $user
   passwd -u $user
   mkdir -p -m 700 "/home/$user/.ssh"
   cp $f "/home/$user/.ssh/authorized_keys"

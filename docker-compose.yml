@@ -1,0 +1,14 @@
+version: "2"
+services:
+  jumphost:
+    image: springload/jumphost
+    container_name: jumphost
+    hostname: jumphost
+    environment:
+      KNOCK_SEQUENCE: ${KNOCK_SEQUENCE}
+      SSH_HOST_RSA_KEY: ${SSH_HOST_RSA_KEY}
+      SSH_HOST_DSA_KEY: ${SSH_HOST_DSA_KEY}
+    restart: always
+    network_mode: "host"
+    privileged: true
+    command: "/usr/sbin/sshd -D"

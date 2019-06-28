@@ -15,8 +15,8 @@ do
   chown -R $user:$user "/home/$user/.ssh"
 done
 
-echo "$SSH_HOST_RSA_KEY" > /etc/ssh/ssh_host_rsa_key
-echo "$SSH_HOST_DSA_KEY" > /etc/ssh/ssh_host_dsa_key
+echo -e "$SSH_HOST_RSA_KEY" > /etc/ssh/ssh_host_rsa_key
+echo -e "$SSH_HOST_DSA_KEY" > /etc/ssh/ssh_host_dsa_key
 
 echo '[options]
         logfile = /var/log/knockd.log

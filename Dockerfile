@@ -9,4 +9,4 @@ COPY rootfs /
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 
-CMD [ "sleep", "infinity" ]
+CMD [ "/usr/sbin/sshd", "-D" ]

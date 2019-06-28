@@ -9,6 +9,7 @@ do
   user=${user%"_authorized_keys"}
   echo $user
   adduser $user -D
+  passwd -u $user
   mkdir -p -m 700 "/home/$user/.ssh"
   cp $f "/home/$user/.ssh/authorized_keys"
   chmod 600 "/home/$user/.ssh/authorized_keys"

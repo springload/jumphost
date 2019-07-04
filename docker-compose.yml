@@ -12,3 +12,5 @@ services:
     network_mode: "host"
     privileged: true
     command: "/usr/sbin/sshd -D"
+    volumes:
+      - "/opt/appdata/logs:/var/log"

@@ -33,4 +33,6 @@ echo '[options]
 
 knockd -d
 
+syslogd
+
 exec "$@"

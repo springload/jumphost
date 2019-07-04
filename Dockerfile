@@ -7,6 +7,8 @@ RUN apk update && \
 
 COPY rootfs /
 
+VOLUME ["/var/log"]
+
 ENTRYPOINT [ "/entrypoint.sh" ]
 
 CMD [ "/usr/sbin/sshd", "-D" ]

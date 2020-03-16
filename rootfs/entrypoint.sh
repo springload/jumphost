@@ -1,24 +1,19 @@
 #!/bin/bash
 
-git clone https://github.com/springload/public-keys /tmp/public-keys
+/setup-users.sh
 
-FILES=/tmp/public-keys/ssh/*
-for f in $FILES
-do
-  user=$(basename $f)
-  user=${user%"_authorized_keys"}
-  echo $user
-  adduser -D -s /bin/bash $user
-  passwd -u $user
-  mkdir -p -m 700 "/home/$user/.ssh"
-  cp $f "/home/$user/.ssh/authorized_keys"
-  chmod 600 "/home/$user/.ssh/authorized_keys"
-  chown -R $user:$user "/home/$user/.ssh"
-done
+if [ $SSH_CA_PUB ]; then
+  echo "Setting up CA based keys..."
+  echo "$SSH_CA_PUB" > /etc/ssh/ca.pub
+  echo "TrustedUserCAKeys /etc/ssh/ca.pub" >> /etc/ssh/sshd_config
+  # echo "AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u" >> /etc/ssh/sshd_config
+fi
 
+echo "Setting Host key..."
 echo -e "$SSH_HOST_RSA_KEY" > /etc/ssh/ssh_host_rsa_key
 echo -e "$SSH_HOST_DSA_KEY" > /etc/ssh/ssh_host_dsa_key
 
+echo "Setting up knockd..."
 echo '[options]
         logfile = /var/log/knockd.log
 [openclosePort]
@@ -35,4 +30,5 @@ knockd -d
 
 syslogd
 
+echo "Starting Jumphost..."
 exec "$@"

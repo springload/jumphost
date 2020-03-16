@@ -8,6 +8,7 @@ services:
       KNOCK_SEQUENCE: ${KNOCK_SEQUENCE}
       SSH_HOST_RSA_KEY: ${SSH_HOST_RSA_KEY}
       SSH_HOST_DSA_KEY: ${SSH_HOST_DSA_KEY}
+      SSH_CA_PUB: ${SSH_CA_PUB}
     restart: always
     network_mode: "host"
     privileged: true

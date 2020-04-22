@@ -1,9 +1,5 @@
 #!/bin/bash
 
-if [ ! -z "$PUBLIC_KEYS_REPO" ]; then
-  /setup-users.sh
-fi
-
 if [ ! -z "$SSH_CA_PUB" ]; then
   echo "Setting up CA based keys..."
   echo "$SSH_CA_PUB" > /etc/ssh/ca.pub
@@ -13,6 +9,10 @@ if [ ! -z "$SSH_CA_PUB" ]; then
   echo "jumphost" > /etc/ssh/sshd_principals/jump-user
   adduser -D -s /bin/bash jump-user
   passwd -u jump-user >/dev/null 2>&1
+fi
+
+if [ ! -z "$PUBLIC_KEYS_REPO" ]; then
+  /setup-users.sh
 fi
 
 if [ ! -z "$SSH_HOST_RSA_KEY" ]; then

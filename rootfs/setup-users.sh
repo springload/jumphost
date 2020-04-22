@@ -16,6 +16,7 @@ do
   adduser -D -s /bin/bash $user
   passwd -u $user >/dev/null 2>&1
   mkdir -p -m 700 "/home/$user/.ssh"
+  chown $user:$user "/home/$user/.ssh"
   install -m 600 -o $user -g $user $f /home/$user/.ssh/authorized_keys
   echo "$user@jumphost" > /etc/ssh/sshd_principals/$user
   echo "Created user $user"

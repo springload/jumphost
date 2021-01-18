@@ -1,0 +1,18 @@
+[Unit]
+Description=Jumphost Container
+After=docker.service
+Requires=docker.service
+
+[Service]
+WorkingDirectory=/etc/jumphost
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop jumphost
+ExecStartPre=-/usr/bin/docker rm jumphost
+ExecStartPre=/bin/git -C data/public-keys pull
+ExecStartPre=/bin/git pull
+ExecStartPre=/usr/bin/docker build -t jumphost .
+ExecStart=/usr/bin/docker run -e PUBLIC_KEYS_REPO=/data/public-keys --privileged --network=host -v "/etc/jumphost/data:/data" --rm --name %n jumphost
+
+[Install]
+WantedBy=multi-user.target

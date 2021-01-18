@@ -1,17 +1,13 @@
 version: "2"
 services:
   jumphost:
-    image: springload/jumphost
-    container_name: jumphost
-    hostname: jumphost
+    build: .
     environment:
       KNOCK_SEQUENCE: ${KNOCK_SEQUENCE}
-      SSH_HOST_RSA_KEY: ${SSH_HOST_RSA_KEY}
-      SSH_HOST_DSA_KEY: ${SSH_HOST_DSA_KEY}
-      SSH_CA_PUB: ${SSH_CA_PUB}
+      PUBLIC_KEYS_REPO: /data/public-keys
+      # AUTO_CREATE_USERS: 1
     restart: always
     network_mode: "host"
     privileged: true
-    command: "/usr/sbin/sshd -D"
     volumes:
-      - "/opt/appdata/logs:/var/log"
+      - "./data/:/data"

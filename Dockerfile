@@ -6,6 +6,7 @@ RUN apk update && \
     ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa
 
 COPY rootfs /
+RUN mkdir -p /etc/ssh/sshd_principals/
 
 VOLUME ["/var/log"]
 
